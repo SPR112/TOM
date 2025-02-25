@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Labirynt</title>
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .choice {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #c00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .choice:hover {
+      background: #900;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interaktywny Labirynt</h1>
+  <p>Wybierz drogę, aby odkryć kolejne hasło:</p>
+  <div id="labyrinth">
+    <button class="choice" onclick="choose('left')">Lewo</button>
+    <button class="choice" onclick="choose('right')">Prawo</button>
+    <button class="choice" onclick="choose('straight')">Prosto</button>
+    <button class="choice" onclick="choose('back')">Wstecz</button>
+  </div>
+  <p id="result"></p>
+  <script>
+    // Poprawna sekwencja – zmodyfikuj ją według swoich potrzeb
+    const correctPath = ['straight', 'right', 'straight'];
+    let userPath = [];
+    
+    function choose(direction) {
+      userPath.push(direction);
+      document.getElementById('result').innerText = "Wybrałeś: " + userPath.join(' → ');
+      
+      // Jeśli użytkownik podał zbyt wiele kroków, resetujemy labirynt
+      if (userPath.length > correctPath.length) {
+        document.getElementById('result').innerText = "Pomyłka! Labirynt zmienia się. Zacznij od nowa.";
+        userPath = [];
+        return;
+      }
+      
+      // Sprawdzamy, czy aktualna sekwencja jest poprawna
+      for (let i = 0; i < userPath.length; i++) {
+        if (userPath[i] !== correctPath[i]) {
+          document.getElementById('result').innerText = "Błąd! Labirynt zmienia się. Zacznij od nowa.";
+          userPath = [];
+          return;
+        }
+      }
+      
+      // Jeśli gracz podał całą poprawną sekwencję, wyświetlamy hasło
+      if (userPath.length === correctPath.length) {
+        document.getElementById('result').innerText = "Brawo! Twoje hasło: theend";
+        // Opcjonalnie: przekierowanie lub dalsze instrukcje
+      }
+    }
+  </script>
+</body>
+</html>

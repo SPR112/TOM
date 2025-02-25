@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title> 
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      background: #222;
+      color: #eee;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #c00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    button:hover {
+      background: #900;
+    }
+    .hidden {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #0f0;
+    }
+    /* Ukryty tekst – ten sam kolor co tło, więc jest niewidoczny */
+    .invisible {
+      color: #111;
+      user-select: text;
+    }
+    /* Ukryty link dla "odbicia" (Lore 2) */
+    #hiddenLink {
+      text-decoration: none;
+      color: #111;
+      user-select: text;
+      cursor: default;
+      pointer-events: none;
+    }
+    #hiddenLink.active {
+      color: #111; /* pozostaje taki sam, bo używamy wskazówki przez zaznaczenie */
+      cursor: pointer;
+      pointer-events: auto;
+    }
+    /* Ukryty link do labiryntu (Lore 3) */
+    #labyrinthLink {
+      text-decoration: none;
+      color: #111; /* niewidoczny – kolor tła */
+      user-select: text;
+      cursor: default;
+      pointer-events: none;
+    }
+    #labyrinthLink.active {
+      color: #0f0; /* po aktywacji staje się zielony */
+      cursor: pointer;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <p>Aby przejść dalej, wpisz właściwe hasło:</p>
+  
+  <input type="text" id="passwordInput" placeholder="Wpisz hasło">
+  <button onclick="checkPassword()">Sprawdź</button>
+
+  <!-- Lore 1: pojawia się po wpisaniu "shadow29122003" -->
+  <p id="lore1" class="hidden">
+    29 grudnia 2003
+To był mroźny wieczór, kiedy rozpocząłem pracę nad prototypem gry, która miała stać się moją opuszczoną perełką. W nocy, gdy kod sam się pisał, zacząłem słyszeć dziwne dźwięki – jakby echo z przeszłości.
+    <br><br>
+    <span class="invisible">Dźwięki niosą odpowiedź. Przyjrzyj się falom.</span>
+    <br><br>
+    <!-- Wbudowana ścieżka dźwiękowa -->
+    <audio controls>
+      <source src="sound.wav" type="audio/mpeg">
+      Twoja przeglądarka nie obsługuje elementu audio.
+    </audio>
+    <br>
+    <!-- Link do pobrania ścieżki -->
+    <a href="sound.wav" download style="color: #0f0;">Pobierz ścieżkę dźwiękową</a>
+  </p>
+  
+  <!-- Lore 2: pojawia się po wpisaniu "mirror01011998" -->
+  <p id="lore2" class="hidden">
+    1 stycznia 1998
+W trakcie pracy nad grą natrafiłem na tajemniczy fragment kodu oznaczony datą sprzed lat. To dziwne lustro w grze – prosty mechanizm graficzny – zaczęło odbijać więcej niż tylko obraz.
+    <br>
+    <span class="invisible">
+      Cienie pozostawiły ślad. Poszukaj w <a id="hiddenLink">odbiciu</a>.
+    </span>
+  </p>
+
+  <!-- Lore 3: pojawia się po wpisaniu "oblivion42" -->
+  <p id="lore3" class="hidden">
+    W głębi kodu, gdzie wszystko zaczyna się rozpływać
+Próbując naprawić coraz bardziej niespójny kod, zacząłem doświadczać dziwnych zjawisk. Moja rzeczywistość zlewała się z wirtualnym światem gry. 
+    <br><br>
+    Czas nie istnieje, tylko my jesteśmy uwięzieni.
+    <br>
+    <span class="invisible">
+      Kod został zapisany w ruinach czasu. Zajrzyj tam, gdzie wszystko się kończy. 
+      Odsłoń tajemniczy <a id="labyrinthLink">labirynt</a>.
+    </span>
+  </p>
+
+  <!-- Zakończenie: pojawia się po wpisaniu "theend" -->
+  <p id="ending" class="hidden">
+    Ostatni wpis
+Gdy wszystkie fragmenty układanki zaczęły pasować do siebie, nie mogłem już znieść ciężaru własnych demonów. Gra, która miała być moim dziełem życia, stała się moją klatką.
+
+„To już koniec. Wszystkie tajemnice, wszystkie cienie i odbicia – teraz są moją rzeczywistością. Zamknięty we własnej grze, pozostaję na zawsze częścią kodu, który nigdy nie zazna ukojenia.
+Moja podróż przez mroczne zakamarki pamięci dobiega końca, a jednocześnie zaczyna się nowy rozdział – w labiryncie, z którego nie ma ucieczki.”
+
+W tym ostatnim wpisie zawarłem wszystkie moje przemyślenia, strachy i nadzieje. Hasło „theend” stało się symbolem nie tylko końca mojej egzystencji, ale i początku wiecznej podróży w świecie, który stworzyłem. Może kiedyś ktoś znajdzie te zapiski i zrozumie, że czasami najgłębsza prawda kryje się w kodzie – w cieniach, odbiciach i w ciszy zapomnienia.
+  </p>
+
+  <script>
+    function checkPassword() {
+      var password = document.getElementById("passwordInput").value.toLowerCase();
+      if (password === "shadow29122003") {
+        document.getElementById("lore1").style.display = "block";
+      } else if (password === "mirror01011998") {
+        document.getElementById("lore2").style.display = "block";
+        // Aktywacja linku do odbicia (strony mirror.html)
+        document.getElementById("hiddenLink").classList.add("active");
+        document.getElementById("hiddenLink").setAttribute("href", "mirror.html");
+      } else if (password === "oblivion42") {
+        document.getElementById("lore3").style.display = "block";
+        // Aktywacja linku do labiryntu (strony labyrinth.html)
+        document.getElementById("labyrinthLink").classList.add("active");
+        document.getElementById("labyrinthLink").setAttribute("href", "labyrinth.html");
+      } else if (password === "theend") {
+        document.getElementById("ending").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
